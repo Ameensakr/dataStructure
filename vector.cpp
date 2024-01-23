@@ -10,10 +10,10 @@ const long long OO = 1e16, N = 3e5;
 // #define int long long
 #define ll long long
 
-
+template<class  T>
 class Vector{
 private:
-    int *arr = nullptr;
+    T *arr = nullptr;
     int size = 0;
     int capacity;
 public:
@@ -21,7 +21,7 @@ public:
     {
         size = n;
         if(size <= 0)size = 1;
-        arr = new int [size] {};
+        arr = new T [size] {};
         capacity = n;
     }
     ~Vector()
@@ -30,13 +30,13 @@ public:
         arr = nullptr;
     }
 
-    int get(int idx)
+    T get(int idx)
     {
         assert(idx >= 0 && idx < size);
         return arr[idx];
     }
 
-    void set(int idx , int value)
+    void set(int idx , T value)
     {
         assert(idx >= 0 && idx < size);
         arr[idx] = value;
@@ -47,7 +47,7 @@ public:
             cout<<'\n';
     }
 
-    int find(int num)
+    int find(T num)
     {
         for (int i = 0; i < size; ++i)
         {
@@ -56,7 +56,7 @@ public:
         return -1;
     }
 
-    void push_back(int num)
+    void push_back(T num)
     {
         if(size == capacity)expected_capacity();
         arr[size++] = num;
@@ -64,15 +64,15 @@ public:
     void expected_capacity()
     {
         capacity *= 2;
-        int *temp = arr;
-        arr = new int [capacity] {};
+        T *temp = arr;
+        arr = new T [capacity] {};
         for (int i = 0; i < size; ++i)
         {
             arr[i] = temp[i];
         }
         delete[] temp;
     }
-    void insert(int idx , int num)
+    void insert(int idx , T num)
     {
         assert(idx >= 0 && idx < size);
         if(size == capacity)expected_capacity();
@@ -83,6 +83,21 @@ public:
         arr[idx] = num;
         size++;
     }
+    T& operator [] (int idx)
+    {
+        return arr[idx];
+    }
+
+    int front()
+    {
+        assert( size > 0);
+        return arr[0];
+    }
+    int back()
+    {
+        assert(size > 0);
+        return arr[size - 1];
+    }
 
 };
 
@@ -90,23 +105,21 @@ public:
 signed main() {
     fast;
 
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
 
 
     int t = 1;
-    cin >> t;
+//    cin >> t;
     for (int tct = 1; tct <= t; tct++) {
-        Vector v1(10);
+        Vector<int> v1(10);
         v1.set(1 , 9);
         v1.set(0 , 19);
+        v1[0] = 1;
         v1.print();
         cout<<v1.find(9)<<" "<<v1.find(66)<<'\n';
         v1.push_back(10);
         v1.insert(1 , 10);
         v1.print();
+
 
 
 

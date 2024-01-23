@@ -99,6 +99,63 @@ public:
         return arr[size - 1];
     }
 
+    void right_rotate() // first homework
+    {
+        T lastElement = arr[size - 1];
+        for (int i = size - 1; i >= 1 ;--i) {
+            arr[i] = arr[i - 1];
+        }
+        arr[0] = lastElement;
+    }
+
+    void left_rotate() // second homework
+    {
+        T firstElement = arr[0];
+        for (int i = 0; i < size - 1 ; ++i) {
+            arr[i] = arr[i + 1];
+        }
+        arr[size - 1] = firstElement;
+    }
+
+    void right_rotate_with_steps(int num) // third homework
+    {
+        T *temp = new T [size] {};
+        for (int i = 0; i < size; ++i) {
+            temp[(i + num)%size] = arr[i];
+        }
+        arr = temp;
+        delete[] temp;
+    }
+
+    T erase(int idx) // fourth homework
+    {
+        T num = arr[idx];
+        for (int i = idx + 1; i < size; ++i) {
+            arr[i - 1] = arr[i];
+        }
+        size--;
+        return num;
+
+    }
+
+    int find_transposition(T value) // fifith homework
+    {
+        for (int i = 0; i < size; ++i) {
+            if(arr[i] == value)
+            {
+                if(i != 0)
+                {
+                    swap(arr[i] , arr[i-1]);
+                    return i-1;
+                }
+                return 0;
+            }
+        }
+    }
+
+
+
+
 };
 
 
@@ -118,6 +175,14 @@ signed main() {
         cout<<v1.find(9)<<" "<<v1.find(66)<<'\n';
         v1.push_back(10);
         v1.insert(1 , 10);
+        v1.print();
+        v1.right_rotate();
+        v1.print();
+        v1.left_rotate();
+        v1.print();
+        cout<<v1.erase(1)<<endl;
+        v1.print();
+        cout<<v1.find_transposition(9)<<endl;
         v1.print();
 
 
